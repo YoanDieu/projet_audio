@@ -49,7 +49,22 @@ body {
   margin: auto;
 }
 
-nav ul li {
-  display: inline-block;
+.all-container nav{
+  position: relative;
+  display: block;
+  width: 46.2%;
+  margin: auto;
+}
+
+.all-container nav ul {
+  position: relative;
   list-style: none;
+  padding: 0;
+
+}
+
+.all-container nav ul li {
+  position: relative;
+  display: inline-block;
+  text-align: center;
 }

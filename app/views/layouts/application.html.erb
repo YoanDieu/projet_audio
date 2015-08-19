@@ -5,26 +5,29 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 </head>
 <body>
-  <div class="all-container">
-    <nav>
-      <ul>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-        <li><a href="#">...</a></li>
-      </ul>
-    </nav>
+  <div class="filter">
+    <div class="all-container">
+      <nav>
+        <ul>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+          <li><a href="#">...</a></li>
+        </ul>
+      </nav>
 
-    <h1>Projet Audio</h1>
-    <main>
-      <%= yield %>
-    </main>
+      <h1>Projet Audio</h1>
+      <main>
+        <%= yield %>
+      </main>
+    </div>
   </div>
 </body>
 </html>

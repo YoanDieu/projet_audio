@@ -19,12 +19,14 @@
 }
 
 .homevid {
+  margin-bottom: 75px;
 
   h2 {
     display:inline-block;
     text-transform: uppercase;
     font-weight: bold;
     width: 10%;
+    margin-top: 0;
   }
 
   a {
@@ -74,4 +76,17 @@
     }
 
   }
+
+
+  }
+
+  .homegigs {
+
+    h2 {
+      display:inline-block;
+      text-transform: uppercase;
+      font-weight: bold;
+      width: 20%;
+      margin-top: 0px;
+    }
 }

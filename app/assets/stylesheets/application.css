@@ -54,15 +54,18 @@ body {
 .all-container nav{
   position: relative;
   display: block;
-  width: 57.62%;
+  width: 90%;
   margin: auto;
   margin-bottom: 17%;
 }
+
+
 
 .all-container nav ul {
   position: relative;
   list-style: none;
   padding: 0;
+  margin: auto;
 
 }
 
@@ -80,6 +83,21 @@ body {
   text-transform: uppercase;
   text-decoration: none;
   color: white;
+}
+
+nav.social ul{
+    position: relative;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+nav.social ul li {
+  width: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  text-align: center;
 }
 
 .all-container nav ul li a:hover {

@@ -85,20 +85,7 @@ body {
   color: white;
 }
 
-nav.social ul{
-    position: relative;
-    width: 60%;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-
-nav.social ul li {
-  width: 3%;
-  margin-left: 3%;
-  margin-right: 3%;
-  text-align: center;
-}
 
 .all-container nav ul li a:hover {
   font-weight: bold;
@@ -111,4 +98,47 @@ nav.social ul li {
   display: block;
   width: 100%;
   margin: 0;
+}
+
+.all-container footer{
+  display: block;
+  position: relative;
+  margin-top: 30px;
+}
+
+.all-container footer nav.social {
+  margin-bottom: 55px;
+}
+
+.all-container footer nav.social ul{
+    position: relative;
+    width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.all-container footer nav.social ul li {
+  width: 3%;
+  margin-left: 3%;
+  margin-right: 3%;
+  text-align: center;
+}
+
+.all-container footer nav.social ul li a img.rdio{
+  position: relative;
+  color: white;
+  width: 115%;
+  margin-left: 5px;
+  margin-right: auto;
+}
+
+.all-container footer p {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: lighter;
+  letter-spacing: 5px;
 }

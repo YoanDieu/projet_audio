@@ -100,6 +100,11 @@
         border-top: 1px solid rgba(255,255,255,0.2);
       }
 
+
+      li:last-child {
+        border-bottom: 1px solid rgba(255,255,255,0.2);
+      }
+
       div {
         display: inline-block;
         vertical-align: middle;
@@ -137,4 +142,15 @@
         color: rgba(255, 255, 255, 0.7);
       }
     }
+
+    a {
+      display: block;
+      color: rgba(255, 255, 255, 0.6);
+      text-transform: uppercase;
+      text-decoration: none;
+      text-align: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
 }

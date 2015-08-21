@@ -173,4 +173,37 @@
     font-weight:lighter;
     letter-spacing: 10px;
   }
+
+  article {
+    table {
+      display: block;
+
+      tbody {
+        display: block;
+      }
+
+      .firstLine td:first-child {
+        display: inline-block;
+        width: 65%;
+        img {
+          width: 100%;
+        }
+      }
+
+        .firstLine td:last-child {
+          display: inline-block;
+          width: 32.1%;
+          img {
+            width: 100%;
+          }
+      }
+
+      tr {
+
+        td {
+          display: inline-block;
+        }
+      }
+    }
+  }
 }

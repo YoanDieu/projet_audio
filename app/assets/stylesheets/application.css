@@ -142,3 +142,65 @@ body {
   font-weight: lighter;
   letter-spacing: 5px;
 }
+
+
+
+
+/*//////////////////////////////////////*/
+
+.presentation ul {
+  display: block;
+  padding: 0;
+  border-top: 1px solid rgba(255,255,255,0.2);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  padding-bottom: 60px;
+  padding-top: 60px;
+}
+
+
+.presentation ul li   {
+  display: inline-block;
+  width: 30%;
+  vertical-align: top;
+  margin-right: 40px;
+}
+
+
+.presentation ul li article h3 {
+  text-transform: uppercase;
+  margin-bottom: 30px;
+  margin-top: 0;
+}
+
+.presentation ul li article p {
+  color: rgba(255,255,255,0.6);
+  text-transform: none;
+  text-align: left;
+  letter-spacing: normal;
+}
+
+
+.presentation ul li article img{
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+
+
+.presentation ul li article .posts h4 {
+  color: rgba(255,255,255,0.7);
+  margin-bottom: 10px;
+}
+
+.presentation ul li article .posts p {
+  color: rgba(255,255,255,0.7);
+  text-transform: uppercase;
+  font-weight: lighter;
+  font-size: 13px;
+  letter-spacing: 2px;    margin-top: 0;
+  margin-bottom: 30px;
+}
+
+.presentation ul li:last-child {
+  margin-right: 0;
+}

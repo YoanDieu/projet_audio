@@ -59,4 +59,6 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   get 'photos' => 'pages#photos'
+
+  get 'contact' => 'pages#contact'
 end

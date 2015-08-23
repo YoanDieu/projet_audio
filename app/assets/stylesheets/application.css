@@ -566,6 +566,10 @@ body {
   text-align: center;
 }
 
+.all-container footer nav.social ul li a i {
+  font-size: 21px;
+}
+
 .all-container footer nav.social ul li a img.rdio{
   position: relative;
   color: white;

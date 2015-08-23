@@ -264,3 +264,56 @@
     }
   }
 }
+
+.all-container .contact {
+
+  h1 {
+    position: relative;
+    display: block;
+    width: 60%;
+    margin: auto;
+    margin-bottom: 5%;
+    margin-top: 0%;
+    font-size: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight:lighter;
+    letter-spacing: 10px;
+  }
+
+  h2 {
+    display: block;
+    text-transform: uppercase;
+    font-size: 30px;
+    text-align: center;
+    letter-spacing: 3px;
+    font-weight: normal;
+    margin-top: 0;
+    padding-bottom: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  section {
+
+    h1 {
+      font-size: 18px;
+    }
+
+    article {
+      display: inline-block;
+      vertical-align: top;
+
+      h2 {
+        font-size: 15px;
+      }
+    }
+
+    article:first-child {
+      width: 756px;
+    }
+
+    article:last-child {
+      width: 340px;
+    }
+  }
+}

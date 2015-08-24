@@ -5,4 +5,10 @@ class PagesController < ApplicationController
   def photos
   end
 
+  def contact
+  end
+
+  def news
+  end
+
 end

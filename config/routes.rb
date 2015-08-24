@@ -61,4 +61,6 @@ Rails.application.routes.draw do
   get 'photos' => 'pages#photos'
 
   get 'contact' => 'pages#contact'
+
+  get 'news' => 'pages#news'
 end

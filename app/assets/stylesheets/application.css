@@ -555,7 +555,7 @@ body {
 
 .all-container footer nav.social ul{
     position: relative;
-    width: 550px;
+    width: 560px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -563,8 +563,8 @@ body {
 
 .all-container footer nav.social ul li {
   width: 3%;
-  margin-left: 3%;
-  margin-right: 3%;
+  margin-left: 2.5%;
+  margin-right: 2.5%;
   text-align: center;
 }
 

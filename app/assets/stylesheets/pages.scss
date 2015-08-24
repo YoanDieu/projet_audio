@@ -342,6 +342,27 @@
           height: 168px;
           margin-bottom: 15px;
       }
+
+      .submit {
+        border: none;
+        width:auto;
+        height: auto;
+        background-color: rgba(0,0,0,0.4);
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.7);
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
+        letter-spacing: 1.3px;
+        line-height: 22px;
+        transition: all 0.25s;
+      }
+
+      .submit:hover {
+        background-color: rgba(0,0,0,0.8);
+        color: rgba(255,255,255,1);
+      }
     }
 
     article:first-child {

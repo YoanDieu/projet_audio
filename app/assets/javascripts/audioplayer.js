@@ -81,14 +81,14 @@ function myPlayer() {
     timeline.style.position = "relative";
     timeline.style.display = "inline-block";
     timeline.style.height = "50px";
-    timeline.style.backgroundColor = "grey";
-    timeline.style.width = "80.2%";
+    timeline.style.backgroundColor = "none";
+    timeline.style.width = "85.2%";
     timeline.style.verticalAlign = "middle";
 
     /* setting progressBar */
     var progressBar = document.createElement("DIV");
     progressBar.style.height = "50px";
-    progressBar.style.backgroundColor = "#0c0c0c";
+    progressBar.style.backgroundColor = "none";
     progressBar.style.width = "100%";
 
     /*setting progress */
@@ -98,6 +98,7 @@ function myPlayer() {
     progress.style.width = "0%";
     progress.style.zIndex = "-10";
     progress.id = "progress";
+    progress.style.transition = "width linear 0.2s";
     progressBar.appendChild(progress);
 
     /* setting imagecover css and attributs */
@@ -236,6 +237,9 @@ function myPlayer() {
         iconPause.style.display = "none";
         iconPlay.style.display = "inline-block";
       } else {
+        if (audio.buffered.end) {
+          progressBar.style.backgroundColor = "#0c0c0c";
+        }
         audio.play();
         iconPlay.style.display = "none";
         iconPause.style.display = "inline-block";

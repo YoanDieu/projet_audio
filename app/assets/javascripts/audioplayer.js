@@ -9,6 +9,7 @@ function myPlayer() {
 
     /* AUDIO ITSELF */
     var audio = document.createElement("AUDIO");
+    audio.preload = "auto";
     var source = document.createElement("SOURCE");
 
     /*setting fullPlayer style */
@@ -124,7 +125,6 @@ function myPlayer() {
     songTitle.innerHTML = "Aeolus - She Threw Herself Into The Sea";
     songTitle.style.zIndex = "510";
     var songLength = document.createElement("P");
-    songLength.style.position = "relative";
     songLength.style.color = "white";
     songLength.style.width = "45%";
     songLength.style.verticalAlign = "middle";
@@ -248,18 +248,20 @@ function myPlayer() {
         iconPause.style.display = "none";
         iconPlay.style.display = "inline-block";
         progress.style.width = '0%';
-        songLength.textContent = "00:00 / 00:00"
+        songLength.textContent = "00:00 / " + formatTime(audio.duration);
       }
     }
 
     /* timeline progression update */
     function update() {
+
+
        var duration =   audio.duration;    // Durée totale
        var time     = audio.currentTime; // Temps écoulé
        var fraction = time / duration;
        var percent  = fraction * 100;
        progress.style.width = percent + '%';
-       songLength.textContent = formatTime(time) + " / " + formatTime(duration);
+        songLength.textContent = formatTime(time) + " / " + formatTime(duration);
     }
 
     /* function to get position of the mouse */

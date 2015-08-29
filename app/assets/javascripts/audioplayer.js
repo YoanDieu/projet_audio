@@ -123,7 +123,7 @@ function myPlayer() {
     songTitle.style.verticalAlign = "middle";
     songTitle.style.display = "inline-block";
     songTitle.style.fontSize = "13px";
-    songTitle.innerHTML = "Aeolus - She Threw Herself Into The Sea";
+    songTitle.innerHTML = "Swift Gad - Narvalo-mix";
     songTitle.style.zIndex = "510";
     var songLength = document.createElement("P");
     songLength.style.color = "white";
@@ -165,6 +165,17 @@ function myPlayer() {
     iconVolume.style.color = "white";
     iconVolume.style.fontSize = "20px";
     iconVolume.style.marginTop = "15px";
+
+    /* setting volumCtrl */
+    var volumeCtrl = document.createElement("DIV");
+    volumeCtrl.style.height = "150px";
+    volumeCtrl.style.width = "50px";
+    volumeCtrl.style.backgroundColor = "black";
+    volumeCtrl.style.marginTop = "-150px";
+    volumeCtrl.style.marginLeft = "-15px";
+    volumeCtrl.style.display = "none";
+
+    volumeBtn.appendChild(volumeCtrl);
     volumeBtn.appendChild(iconVolume);
 
     /* setting BurgerBtn */
@@ -316,12 +327,21 @@ function myPlayer() {
       }
     }
 
+    /* setting volumeControl btn function */
+    function volumeControl() {
+      if (getComputedStyle(volumeCtrl).display == "none"){
+        volumeCtrl.style.display = "static";
+      } else {
+        volumeCtrl.style.display = "none";
+      }
+    }
+
 
     playBtn.addEventListener("click", playPause , false);
     audio.addEventListener("timeupdate", update, false);
     audio.addEventListener("timeupdate", audioEndedReset, false);
     songIntel.addEventListener('click', progressControl, false);
-
+    volumeBtn.addEventListener('click', volumeControl, false);
 
 
 }

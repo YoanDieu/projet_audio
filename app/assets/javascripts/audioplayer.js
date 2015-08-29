@@ -103,21 +103,21 @@ function myPlayer() {
     var cover = document.createElement("DIV");
     cover.style.width = "50px";
     cover.style.height = "100%";
-    cover.style.marginTop = "-50px";
-    cover.style.position = "absolute";
+    cover.style.marginTop = "-4px";
+    cover.style.position = "relative";
     cover.style.display = "inline-block";
     cover.style.verticalAlign = "middle";
     cover.style.zIndex = "510";
     var coverImg = document.createElement("IMG");
-    coverImg.src = "images/album-01.jpg";
+    coverImg.src = "assets/album-01.jpg";
     coverImg.style.height = "50px";
     cover.appendChild(coverImg);
 
     /* settings song and song length */
     var songTitle = document.createElement("P");
     songTitle.style.color = "white";
-    songTitle.style.width = "45%";
-    songTitle.style.marginLeft = "8%";
+    songTitle.style.width = "47%";
+    songTitle.style.marginLeft = "1%";
     songTitle.style.verticalAlign = "middle";
     songTitle.style.display = "inline-block";
     songTitle.style.fontSize = "13px";
@@ -138,17 +138,17 @@ function myPlayer() {
     songIntel.style.position = "relative";
     songIntel.style.display = "inline-block";
     songIntel.style.height = "50px";
-    songIntel.style.paddingTop = "28px";
+    songIntel.style.paddingTop = "8px";
     songIntel.style.backgroundColor = "none";
     songIntel.style.width = "100%";
     songIntel.style.verticalAlign = "middle";
-    songIntel.style.marginTop = "-71px";
+    songIntel.style.marginTop = "-78px";
+    songIntel.appendChild(cover);
     songIntel.appendChild(songTitle);
     songIntel.appendChild(songLength);
 
     /*pushing all into timeline */
     timeline.appendChild(progressBar);
-    timeline.appendChild(cover);
     timeline.appendChild(songIntel);
 
     /* setting volumeBtn */
@@ -254,12 +254,12 @@ function myPlayer() {
 
     /* timeline progression update */
     function update() {
-       var duration = $('audio').load(function() { return audio.duration});    // Durée totale
+       var duration =   audio.duration;    // Durée totale
        var time     = audio.currentTime; // Temps écoulé
        var fraction = time / duration;
        var percent  = fraction * 100;
        progress.style.width = percent + '%';
-      songLength.textContent = formatTime(audio.currentTime) + " / " + formatTime(audio.duration);
+       songLength.textContent = formatTime(time) + " / " + formatTime(duration);
     }
 
     /* function to get position of the mouse */

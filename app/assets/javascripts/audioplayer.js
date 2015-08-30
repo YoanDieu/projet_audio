@@ -327,11 +327,18 @@ function myPlayer() {
       }
     }
 
-    /* setting volumeControl btn function */
-    function volumeControl() {
-      if (getComputedStyle(volumeCtrl).display == "none"){
-        volumeCtrl.style.display = "static";
-      } else {
+    /* setting volumeControl btn functions */
+    function volumeControlShow() {
+      var displayComputed = getComputedStyle(volumeCtrl).display;
+      if (displayComputed == "none"){
+        volumeCtrl.style.display = "block";
+      }
+    }
+
+    function volumeControlHide() {
+      var displayComputed = getComputedStyle(volumeCtrl).display;
+      
+      if (displayComputed == "block"){
         volumeCtrl.style.display = "none";
       }
     }
@@ -341,7 +348,7 @@ function myPlayer() {
     audio.addEventListener("timeupdate", update, false);
     audio.addEventListener("timeupdate", audioEndedReset, false);
     songIntel.addEventListener('click', progressControl, false);
-    volumeBtn.addEventListener('click', volumeControl, false);
-
+    volumeBtn.addEventListener('mouseover', volumeControlShow, false);
+    volumeBtn.addEventListener('mouseout', volumeControlHide, false);
 
 }

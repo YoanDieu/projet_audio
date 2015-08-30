@@ -123,7 +123,7 @@ function myPlayer() {
     songTitle.style.verticalAlign = "middle";
     songTitle.style.display = "inline-block";
     songTitle.style.fontSize = "13px";
-    songTitle.innerHTML = "Swift Gad - Narvalo-mix";
+    songTitle.innerHTML = "LOST - Exploring & Travelling Theme";
     songTitle.style.zIndex = "510";
     var songLength = document.createElement("P");
     songLength.style.color = "white";
@@ -178,6 +178,7 @@ function myPlayer() {
 
     var volumeRange = document.createElement("DIV");
     volumeRange.style.position = "relative";
+    volumeRange.style.boxSizing = "border-box";
     volumeRange.style.width = "2px";
     volumeRange.style.height = "110px";
     volumeRange.style.backgroundColor = "white";
@@ -186,6 +187,7 @@ function myPlayer() {
     volumeRange.style.marginLeft = "auto";
 
     var volumeCursor = document.createElement("DIV");
+    volumeCursor.style.display = "relative";
     volumeCursor.style.height = "16px";
     volumeCursor.style.width = "16px";
     volumeCursor.style.background = "white";
@@ -336,8 +338,8 @@ function myPlayer() {
       var durationChoice = clickedAt(e);
 
       var barPosition = elementPositionAt(progressBar);
-      var barFullWidth = progressBar.offsetWidth;
 
+      var barFullWidth = progressBar.offsetWidth;
 
       var x = durationChoice.x - barPosition.x ;
 
@@ -350,14 +352,68 @@ function myPlayer() {
     }
 
     /* setting volumeControl btn functions */
-    function volumeControlShow() {
+
+
+
+
+
+
+    function volumeClickControle(e) {
+
+      var volumeChoice;
+      var barPosition;
+      var barFullHeightCalculated = getComputedStyle(volumeRange).height;
+      var barFullHeight = parseInt(barFullHeightCalculated[0] + barFullHeightCalculated[1] + barFullHeightCalculated[2]);
+      var y;
+      var choicePercentage;
+
+      var fullVolume = 100;
+
+
+
+      do {
+
+        volumeChoice = clickedAt(e).y;
+        barPosition = elementPositionAt(volumeRange).y;
+        y = volumeChoice - barPosition ;
+        choicePercentage = (y / barFullHeight )* 100;
+        /*songTitle.textContent = clickedAt(e).y;*/
+        volumeRange.style.paddingTop = (fullVolume * choicePercentage) / 100 + "px";
+        audio.volume = 1 -(choicePercentage / 100);
+      }while (volumeChoice > barPosition.y && volumeChoice < (barPosition.y + barFullHeight));
+    }
+
+    function closeVolumeDragControle(e){
+      var storage = {};
+    }
+
+    function initiateVolumeDragControle(e){
+      var storage = {};
+      var s = storage;
+
+      s.target = e.target;
+      s.offsetX = e.clientX - s.target.offsetLeft;
+      s.offsetY = e.clientY - s.target.offsetTop;
+    }
+
+
+
+    function dragVolumeControle(e) { // Permet le suivi du drag & drop
+      var target = storage.target;
+
+      if (target) {
+          VolumeRange.style.paddingTop = e.clientY - storage.offsetY + 'px';
+        }
+    }
+
+    function volumeControleShow() {
       var displayComputed = getComputedStyle(volumeCtrl).display;
       if (displayComputed == "none"){
         volumeCtrl.style.display = "block";
       }
     }
 
-    function volumeControlHide() {
+    function volumeControleHide() {
       var displayComputed = getComputedStyle(volumeCtrl).display;
 
       if (displayComputed == "block"){
@@ -370,7 +426,11 @@ function myPlayer() {
     audio.addEventListener("timeupdate", update, false);
     audio.addEventListener("timeupdate", audioEndedReset, false);
     songIntel.addEventListener('click', progressControl, false);
-    volumeBtn.addEventListener('mouseover', volumeControlShow, false);
-    /*volumeBtn.addEventListener('mouseout', volumeControlHide, false);*/
+    volumeBtn.addEventListener('mouseover', volumeControleShow, false);
+    volumeBtn.addEventListener('mouseout', volumeControleHide, false);
+    volumeCtrl.addEventListener('mousedown', volumeClickControle, false);
+    volumeCtrl.addEventListener('mousedown', initiateVolumeDragControle, false);
+    document.addEventListener("mousemove",dragVolumeControle, false);
+    volumeCtrl.addEventListener('mouseup', closeVolumeDragControle, false);
 
 }

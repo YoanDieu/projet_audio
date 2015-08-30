@@ -184,10 +184,17 @@ function myPlayer() {
     volumeRange.style.display = "relative";
     volumeRange.style.marginRight = "auto";
     volumeRange.style.marginLeft = "auto";
-    
+
+    var volumeCursor = document.createElement("DIV");
+    volumeCursor.style.height = "16px";
+    volumeCursor.style.width = "16px";
+    volumeCursor.style.background = "white";
+    volumeCursor.style.borderRadius = "50%";
+    volumeCursor.style.marginLeft = "-7px";
+
+    volumeRange.appendChild(volumeCursor);
 
     volumeCtrl.appendChild(volumeRange);
-
 
 
     volumeBtn.appendChild(volumeCtrl);
@@ -364,6 +371,6 @@ function myPlayer() {
     audio.addEventListener("timeupdate", audioEndedReset, false);
     songIntel.addEventListener('click', progressControl, false);
     volumeBtn.addEventListener('mouseover', volumeControlShow, false);
-    volumeBtn.addEventListener('mouseout', volumeControlHide, false);
+    /*volumeBtn.addEventListener('mouseout', volumeControlHide, false);*/
 
 }

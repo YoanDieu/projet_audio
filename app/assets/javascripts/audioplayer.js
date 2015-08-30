@@ -2,7 +2,7 @@
   $("document").ready(myPlayer) ;
 
 function myPlayer() {
-
+    var storage = {};
     var $body = document.getElementById("body");
     var fullPlayer = document.createElement("DIV");
 
@@ -286,7 +286,7 @@ function myPlayer() {
       if( audio.ended) {
         iconPause.style.display = "none";
         iconPlay.style.display = "inline-block";
-        progress.style.width = '0%';
+        progress.style.width = '100%';
         songLength.textContent = "00:00 / " + formatTime(audio.duration);
       }
     }
@@ -383,33 +383,110 @@ function myPlayer() {
       }while (volumeChoice > barPosition.y && volumeChoice < (barPosition.y + barFullHeight));
     }
 
-    function closeVolumeDragControle(e){
-      var storage = {};
+
+    (function() { // On utilise une IIFE pour ne pas polluer l'espace global
+
+        var storage = {}; // Contient l'objet de la div en cours de déplacement
+
+
+        function init() { // La fonction d'initialisation
+
+        function mouseDown(e) { // Initialise le drag & drop
+
+            var s = storage;
+            s.target = e.target;
+            s.offsetX = e.clientX - s.target.offsetLeft;
+            s.offsetY = e.clientY - s.target.offsetTop;
+
+        }
+
+        function mouseMove(e) { // Permet le suivi du drag & drop
+            var target = storage.target;
+            var rangeComputed = getComputedStyle(volumeRange).paddingTop;
+            var range = parseInt(rangeComputed[0] + rangeComputed[1] + rangeComputed[2]);
+            var heightComputed = getComputedStyle(volumeRange).height;
+            var max = 110;
+
+            if (target && range >= 0 && range < max ) {
+                var pad = e.clientY - storage.offsetY;
+
+                volumeRange.style.paddingTop = pad + 'px';
+                console.log(pad);
+            }
+        }
+
+        volumeCursor.addEventListener('mouseup', function() { // Termine le drag & drop
+            storage = {};
+        }, false);
+
+            volumeCursor.addEventListener('mousedown', mouseDown, false);
+
+
+
+        document.addEventListener('mousemove', mouseMove, false);
     }
 
+    init(); // On initialise le code avec notre fonction toute prête.
+
+})();
+
+
+
+
+  /*  function dragVolumeControle(e) { // Permet le suivi du drag & drop
+      var target = storage.target;
+      var volBarHeightCalculated = getComputedStyle(volumeRange).height;
+      var volBarHeight = parseInt(volBarHeightCalculated[0] + volBarHeightCalculated[1] + volBarHeightCalculated[2]);
+      var rangePaddingCalculated = getComputedStyle(volumeRange).paddingTop;
+      var rangePadding =  parseInt(rangePaddingCalculated[0] + rangePaddingCalculated[1] + rangePaddingCalculated[2])
+      var rangePaddingPercent = 100 -((rangePadding * 100) / volBarHeight);
+      var targetedPercent =  ((storage.offsetTop * 100)/ volBarHeight);
+      console.log(targetedPercent);
+
+
+      if (target /*&& rangePadding >= 0 && rangePadding <= volBarHeight) {
+
+        volumeRange.style.paddingTop = ( targetedPercent) + "%";
+
+      }
+    }
+
+
+
     function initiateVolumeDragControle(e){
-      var storage = {};
+
       var s = storage;
 
       s.target = e.target;
       s.offsetX = e.clientX - s.target.offsetLeft;
       s.offsetY = e.clientY - s.target.offsetTop;
+      s.offsetTop = s.target.offsetTop;
+
+      document.addEventListener("mousemove",dragVolumeControle, false);
     }
 
 
-
-    function dragVolumeControle(e) { // Permet le suivi du drag & drop
-      var target = storage.target;
-
-      if (target) {
-          VolumeRange.style.paddingTop = e.clientY - storage.offsetY + 'px';
-        }
+    function closeVolumeDragControle(e){
+      var rangePaddingCalculated = getComputedStyle(volumeRange).paddingTop;
+      var rangePadding =  parseInt(rangePaddingCalculated[0] + rangePaddingCalculated[1] + rangePaddingCalculated[2]);
+      var volBarHeightCalculated = getComputedStyle(volumeRange).height;
+      var volBarHeight = parseInt(volBarHeightCalculated[0] + volBarHeightCalculated[1] + volBarHeightCalculated[2]);
+      var rangePaddingPercent = 100 -((rangePadding * 100) / volBarHeight);
+      storage = {};
+      audio.volume = rangePaddingPercent / 100;
     }
+
+*/
+
 
     function volumeControleShow() {
       var displayComputed = getComputedStyle(volumeCtrl).display;
       if (displayComputed == "none"){
         volumeCtrl.style.display = "block";
+        /*volumeCtrl.addEventListener('mousedown', volumeClickControle, false);
+        volumeCtrl.addEventListener('mousedown', initiateVolumeDragControle, false);
+        volumeCtrl.addEventListener('mouseup',closeVolumeDragControle , false);*/
+
       }
     }
 
@@ -418,7 +495,13 @@ function myPlayer() {
 
       if (displayComputed == "block"){
         volumeCtrl.style.display = "none";
+        /*
+        volumeCtrl.removeEventListener('mousedown', initiateVolumeDragControle, false);
+        volumeCtrl.removeEventListener('mouseup',closeVolumeDragControle , false);
+        document.removeEventListener("mousemove",dragVolumeControle, false);*/
       }
+
+      storage = {};
     }
 
 
@@ -428,9 +511,7 @@ function myPlayer() {
     songIntel.addEventListener('click', progressControl, false);
     volumeBtn.addEventListener('mouseover', volumeControleShow, false);
     volumeBtn.addEventListener('mouseout', volumeControleHide, false);
-    volumeCtrl.addEventListener('mousedown', volumeClickControle, false);
-    volumeCtrl.addEventListener('mousedown', initiateVolumeDragControle, false);
-    document.addEventListener("mousemove",dragVolumeControle, false);
-    volumeCtrl.addEventListener('mouseup', closeVolumeDragControle, false);
+    volumeCtrl.addEventListener('click', volumeClickControle, false);
+
 
 }

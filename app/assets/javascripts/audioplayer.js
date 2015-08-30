@@ -168,12 +168,27 @@ function myPlayer() {
 
     /* setting volumCtrl */
     var volumeCtrl = document.createElement("DIV");
-    volumeCtrl.style.height = "150px";
+    volumeCtrl.style.height = "130px";
     volumeCtrl.style.width = "50px";
     volumeCtrl.style.backgroundColor = "black";
     volumeCtrl.style.marginTop = "-150px";
     volumeCtrl.style.marginLeft = "-15px";
     volumeCtrl.style.display = "none";
+    volumeCtrl.style.paddingTop = "20px";
+
+    var volumeRange = document.createElement("DIV");
+    volumeRange.style.position = "relative";
+    volumeRange.style.width = "2px";
+    volumeRange.style.height = "110px";
+    volumeRange.style.backgroundColor = "white";
+    volumeRange.style.display = "relative";
+    volumeRange.style.marginRight = "auto";
+    volumeRange.style.marginLeft = "auto";
+    
+
+    volumeCtrl.appendChild(volumeRange);
+
+
 
     volumeBtn.appendChild(volumeCtrl);
     volumeBtn.appendChild(iconVolume);
@@ -194,8 +209,8 @@ function myPlayer() {
     burgerBtn.appendChild(iconBurger);
 
     /*setting source attributs*/
-    source.src = "montageson.ogg";
-    source.type = "audio/ogg";
+    source.src = "LOST - Exploring & Travelling Theme.mp3";
+    source.type = "audio/mp3";
 
     /* setting playerBtn attribut and style */
 
@@ -337,7 +352,7 @@ function myPlayer() {
 
     function volumeControlHide() {
       var displayComputed = getComputedStyle(volumeCtrl).display;
-      
+
       if (displayComputed == "block"){
         volumeCtrl.style.display = "none";
       }

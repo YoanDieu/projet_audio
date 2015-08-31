@@ -244,7 +244,7 @@ function myPlayer() {
     burgerBtn.appendChild(iconBurger);
 
     /*setting source attributs*/
-    source.src = playList[1].mp3;
+    source.src = playList[0].mp3;
     song1.selected = true;
     alert(playList[0].selected);
     source.type = "audio/mp3";
@@ -594,7 +594,7 @@ function myPlayer() {
       songTitle.textContent = playList[0].name;
       playListResetSelect();
       playList[0].selected = true;
-    } else if (previous > 0 && direction == "backward"){
+    } else if (previous >= 0 && direction == "backward"){
       source.src = playList[previous].mp3;
       songTitle.textContent = playList[previous].name;
       playListResetSelect();

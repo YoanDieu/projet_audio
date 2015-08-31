@@ -2,6 +2,24 @@
   $("document").ready(myPlayer) ;
 
 function myPlayer() {
+
+  var actualSong = 0;
+
+  function Song(id, name, mp3, ogg ) {
+    this.id = id;
+    this.name = name;
+    this.mp3 = mp3;
+    this.ogg = ogg;
+    this.selected = false;
+  }
+
+  var song1 = new Song(1, "LOST - Exploring & Travelling Theme", "LOST - Exploring & Travelling Theme.mp3", "None");
+  var song2 = new Song(2, "LOST - Bens Theme", "LOST - Bens Theme.mp3", "None");
+  var song3 = new Song(3, "LOST - Charlies Theme", "LOST - Charlies Theme.mp3", "None");
+  var song4 = new Song(4, "LOST - Desmond & Pennys Theme", "LOST - Desmond & Pennys Theme.mp3", "None");
+
+    var playList = [song1, song2, song3, song4];
+
     var storage = {};
     var $body = document.getElementById("body");
     var fullPlayer = document.createElement("DIV");
@@ -226,7 +244,9 @@ function myPlayer() {
     burgerBtn.appendChild(iconBurger);
 
     /*setting source attributs*/
-    source.src = "LOST - Exploring & Travelling Theme.mp3";
+    source.src = playList[1].mp3;
+    song1.selected = true;
+    alert(playList[0].selected);
     source.type = "audio/mp3";
 
     /* setting playerBtn attribut and style */
@@ -270,6 +290,7 @@ function myPlayer() {
             return mins + ":" + secs; // mm:ss
         }
     }
+
 
     /* play and pause toggle function */
 
@@ -513,6 +534,7 @@ function myPlayer() {
       storage = {};
     }
 
+    function addAllEvents(){
 
     playBtn.addEventListener("click", playPause , false);
     audio.addEventListener("timeupdate", update, false);
@@ -521,6 +543,86 @@ function myPlayer() {
     volumeBtn.addEventListener('mouseover', volumeControleShow, false);
     volumeBtn.addEventListener('mouseout', volumeControleHide, false);
     volumeCtrl.addEventListener('click', volumeClickControle, false);
+    forwardBtn.addEventListener('click', nextSong, false);
+    backwardBtn.addEventListener('click', previousSong, false);
+  }
 
+  function removeAllEvents() {
+    playBtn.removeEventListener("click", playPause , false);
+    audio.removeEventListener("timeupdate", update, false);
+    audio.removeEventListener("timeupdate", audioEndedReset, false);
+    songIntel.removeEventListener('click', progressControl, false);
+    volumeBtn.removeEventListener('mouseover', volumeControleShow, false);
+    volumeBtn.removeEventListener('mouseout', volumeControleHide, false);
+    volumeCtrl.removeEventListener('click', volumeClickControle, false);
+    forwardBtn.removeEventListener('click', nextSong, false);
+    backwardBtn.removeEventListener('click', previousSong, false);
+  }
 
+  /* function to reset the selected value off all song to false */
+  function playListResetSelect() {
+    for (i = 0; i < playList.length; i++){
+        playList[i].selected = false;
+    }
+  }
+
+  /* function to now the actual selected song */
+
+  function actualySelected() {
+    for (i = 0; i < playList.length; i++){
+
+      if (playList[i].selected == true){
+        actualSong = i;
+      }
+    }
+    return actualSong;
+  }
+
+  /* function to fill the audio with a song */
+  function fillAudio(i, direction) {
+    var max = playList.length - 1;
+    console.log(max);
+    var next = i + 1;
+    var previous = i - 1;
+    if (next < (playList.length) && direction == "forward") {
+      source.src = playList[next].mp3;
+      songTitle.textContent = playList[next].name;
+      playListResetSelect();
+      playList[next].selected = true;
+    } else if(next >= playList.length && direction == "forward") {
+      source.src = playList[0].mp3;
+      songTitle.textContent = playList[0].name;
+      playListResetSelect();
+      playList[0].selected = true;
+    } else if (previous > 0 && direction == "backward"){
+      source.src = playList[previous].mp3;
+      songTitle.textContent = playList[previous].name;
+      playListResetSelect();
+      playList[previous].selected = true;
+    } else if (previous < 0 && direction == "backward"){
+      source.src = playList[max].mp3;
+      songTitle.textContent = playList[max].name;
+      playListResetSelect();
+      playList[max].selected = true;
+    }
+    audio.load();
+    audio.play();
+
+  }
+
+  /* function to navigate forward in playlist  */
+
+  function nextSong() {
+    var now = actualySelected();
+    fillAudio(now, "forward");
+  }
+
+  function previousSong() {
+    var now = actualySelected();
+    fillAudio(now , "backward");
+  }
+
+  /* function to navigate backward in playList */
+
+  addAllEvents();
 }

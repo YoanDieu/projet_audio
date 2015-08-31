@@ -5,7 +5,7 @@ function myPlayer() {
 
   var actualSong = 0;
 
-  function Song(id, name, album, author, mp3, ogg ) {
+  function Song(id, name, album, author, mp3, ogg, duration ) {
 
     /* creating properties */
     this.id = id;
@@ -14,6 +14,7 @@ function myPlayer() {
     this.author = author;
     this.mp3 = mp3;
     this.ogg = ogg;
+    this.duration = duration;
     this.selected = false;
 
     /* creating this song elements to display */
@@ -23,14 +24,15 @@ function myPlayer() {
     this.element.style.display = "block";
     this.element.style.paddingLeft = "20px";
     this.element.style.borderTop = "1px solid #d0d0d0";
+    this.element.style.transition = "background-color 0.6sec"
 
     this.col1 = document.createElement("DIV");
     this.col1.style.position = "relative";
     this.col1.style.display = "inline-block";
     this.col1.style.height = "100%";
     this.col1.style.width = "50px";
-    this.col1.style.paddingTop = "12px";
-    this.col1.style.paddingBottom = "12px";
+    this.col1.style.paddingTop = "14px";
+    this.col1.style.paddingBottom = "14px";
     this.col1.style.color = "#666666";
     this.col1.style.fontFamily = "sans-serif";
     this.col1.style.fontSize = "14px";
@@ -41,8 +43,8 @@ function myPlayer() {
     this.col2.style.display = "inline-block";
     this.col2.style.height = "100%";
     this.col2.style.width = "36%";
-    this.col2.style.paddingTop = "12px";
-    this.col2.style.paddingBottom = "12px";
+    this.col2.style.paddingTop = "14px";
+    this.col2.style.paddingBottom = "14px";
     this.col2.style.color = "#333333";
     this.col2.style.fontFamily = "sans-serif";
     this.col2.style.fontSize = "14px";
@@ -53,23 +55,38 @@ function myPlayer() {
     this.col3.style.display = "inline-block";
     this.col3.style.height = "100%";
     this.col3.style.width = "56%";
-    this.col3.style.paddingTop = "12px";
-    this.col3.style.paddingBottom = "12px";
+    this.col3.style.paddingTop = "14px";
+    this.col3.style.paddingBottom = "14px";
     this.col3.style.color = "#666666";
     this.col3.style.fontFamily = "sans-serif";
     this.col3.style.fontSize = "12px";
     this.col3.textContent = this.author
 
+    this.col4 = document.createElement("DIV");
+    this.col4.style.position = "relative";
+    this.col4.style.display = "inline-block";
+    this.col4.style.height = "100%";
+    this.col4.style.width = "4%";
+    this.col4.style.textAlign = "right";
+    this.col4.style.paddingTop = "14px";
+    this.col4.style.paddingBottom = "14px";
+    this.col4.style.color = "#666666";
+    this.col4.style.fontFamily = "sans-serif";
+    this.col4.style.fontSize = "14px";
+    this.col4.style.right = "0px";
+    this.col4.textContent = this.duration
+
     this.element.appendChild(this.col1);
     this.element.appendChild(this.col2);
     this.element.appendChild(this.col3);
+    this.element.appendChild(this.col4);
 
     }
 
-  var song1 = new Song(1, "LOST - Exploring & Travelling Theme", "LOST", "Michael Giacchino", "LOST - Exploring & Travelling Theme.mp3", "None");
-  var song2 = new Song(2, "LOST - Bens Theme", "LOST", "Michael Giacchino", "LOST - Bens Theme.mp3", "None");
-  var song3 = new Song(3, "LOST - Charlies Theme", "LOST", "Michael Giacchino", "LOST - Charlies Theme.mp3", "None");
-  var song4 = new Song(4, "LOST - Desmond & Pennys Theme", "LOST", "Michael Giacchino", "LOST - Desmond & Pennys Theme.mp3", "None");
+  var song1 = new Song(1, "Exploring & Travelling Theme", "LOST", "Michael Giacchino", "LOST - Exploring & Travelling Theme.mp3", "None", "3:36");
+  var song2 = new Song(2, "Bens Theme", "LOST", "Michael Giacchino", "LOST - Bens Theme.mp3", "None", "3:51");
+  var song3 = new Song(3, "Charlies Theme", "LOST", "Michael Giacchino", "LOST - Charlies Theme.mp3", "None", "3:32");
+  var song4 = new Song(4, "Desmond & Pennys Theme", "LOST", "Michael Giacchino", "LOST - Desmond & Pennys Theme.mp3", "None", "4:19");
 
 
 
@@ -299,7 +316,7 @@ function myPlayer() {
     burgerBtn.appendChild(iconBurger);
     var displayPlayList = document.createElement("UL");
     displayPlayList.style.display = "block";
-    displayPlayList.style.backgroundColor = "rgba(255,255,255,0.9)";
+    displayPlayList.style.backgroundColor = "rgba(255,255,255,0.97)";
     displayPlayList.style.height = "auto";
     displayPlayList.style.width = "100%";
     displayPlayList.style.position = "fixed";
@@ -387,14 +404,19 @@ function myPlayer() {
 
     /* timeline progression update */
     function update() {
+        var select = actualySelected();
 
-
-       var duration =   audio.duration;    // Durée totale
+       var duration = audio.duration;    // Durée totale
        var time     = audio.currentTime; // Temps écoulé
        var fraction = time / duration;
        var percent  = fraction * 100;
        progress.style.width = percent + '%';
         songLength.textContent = formatTime(time) + " / " + formatTime(duration);
+
+        if(audio.ended) {
+          nextSong();
+          audio.play();
+        }
     }
 
     /* function to get position of the mouse */
@@ -596,7 +618,7 @@ function myPlayer() {
   function fillAudio(i, direction) {
     var wasPlaying = false;
 
-    if (!audio.paused){
+    if (audio.end || !audio.paused){
       wasPlaying = true;
     }else {
       wasPlaying = false;
@@ -607,24 +629,35 @@ function myPlayer() {
     var previous = i - 1;
     if (next < (playList.length) && direction == "forward") {
       source.src = playList[next].mp3;
-      songTitle.textContent = playList[next].name;
+      songTitle.textContent =  playList[next].album + " - " + playList[next].name;
       playListResetSelect();
       playList[next].selected = true;
     } else if(next >= playList.length && direction == "forward") {
       source.src = playList[0].mp3;
-      songTitle.textContent = playList[0].name;
+      songTitle.textContent = playList[0].album + " - " + playList[0].name;
       playListResetSelect();
       playList[0].selected = true;
     } else if (previous >= 0 && direction == "backward"){
       source.src = playList[previous].mp3;
-      songTitle.textContent = playList[previous].name;
+      songTitle.textContent = playList[previous].album + " - " + playList[previous].name;
       playListResetSelect();
       playList[previous].selected = true;
     } else if (previous < 0 && direction == "backward"){
       source.src = playList[max].mp3;
-      songTitle.textContent = playList[max].name;
+      songTitle.textContent = playList[max].album + " - " + playList[max].name;
       playListResetSelect();
       playList[max].selected = true;
+    } else if (direction == "click"){
+      source.src = playList[i].mp3;
+      songTitle.textContent = playList[i].album + " - " + playList[i].name;
+      playListResetSelect();
+      playList[i].selected = true;
+
+      for (j = 0; j < playList.length; j++){
+        playList[j].element.style.backgroundColor = "rgba(255,255,255,0)";
+      }
+
+      playList[i].element.style.backgroundColor = "#e8e8e8";
     }
     audio.load();
 
@@ -648,6 +681,30 @@ function myPlayer() {
     fillAudio(now , "backward");
   }
 
+  function navigateByClick(e) {
+
+    function getTheId() {
+      if (e.target.firstElementChild) {
+        return parseInt(e.target.firstElementChild.textContent) - 1;
+      }else {
+
+        return parseInt(e.target.parentNode.firstElementChild.textContent) - 1;
+      }
+    }
+
+    var elementId = getTheId();
+
+    fillAudio(elementId, "click");
+  }
+
+  /* function tu put event on each song display */
+
+  function playListClicks() {
+    for (i= 0; i < playList.length; i ++) {
+      playList[i].element.addEventListener('click', navigateByClick, true);
+    }
+  }
+
   /* function to load playlist */
 
   function loadPlayList() {
@@ -657,6 +714,9 @@ function myPlayer() {
 
   }
 
+
+
   loadPlayList();
   addAllEvents();
+  playListClicks();
 }

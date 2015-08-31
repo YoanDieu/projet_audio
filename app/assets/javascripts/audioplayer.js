@@ -5,18 +5,25 @@ function myPlayer() {
 
   var actualSong = 0;
 
-  function Song(id, name, mp3, ogg ) {
+  function Song(id, name, author, mp3, ogg ) {
     this.id = id;
     this.name = name;
+    this.author = author;
     this.mp3 = mp3;
     this.ogg = ogg;
     this.selected = false;
-  }
+    this.element = document.createElement("LI");
 
-  var song1 = new Song(1, "LOST - Exploring & Travelling Theme", "LOST - Exploring & Travelling Theme.mp3", "None");
-  var song2 = new Song(2, "LOST - Bens Theme", "LOST - Bens Theme.mp3", "None");
-  var song3 = new Song(3, "LOST - Charlies Theme", "LOST - Charlies Theme.mp3", "None");
-  var song4 = new Song(4, "LOST - Desmond & Pennys Theme", "LOST - Desmond & Pennys Theme.mp3", "None");
+    this.element.style.height = "42px";
+    this.element.style.display = "block"
+    this.element.textContent = (this.id + 1) + " : " + this.name + " : " + this.author }
+
+  var song1 = new Song(1, "LOST - Exploring & Travelling Theme", "Michael Giacchino", "LOST - Exploring & Travelling Theme.mp3", "None");
+  var song2 = new Song(2, "LOST - Bens Theme", "Michael Giacchino", "LOST - Bens Theme.mp3", "None");
+  var song3 = new Song(3, "LOST - Charlies Theme", "Michael Giacchino", "LOST - Charlies Theme.mp3", "None");
+  var song4 = new Song(4, "LOST - Desmond & Pennys Theme", "Michael Giacchino", "LOST - Desmond & Pennys Theme.mp3", "None");
+
+
 
     var playList = [song1, song2, song3, song4];
 
@@ -242,6 +249,15 @@ function myPlayer() {
     iconBurger.style.fontSize = "20px";
     iconBurger.style.marginTop = "15px";
     burgerBtn.appendChild(iconBurger);
+    var displayPlayList = document.createElement("UL");
+    displayPlayList.style.display = "block";
+    displayPlayList.style.backgroundColor = "rgba(255,255,255,0.9)";
+    displayPlayList.style.height = "200px";
+    displayPlayList.style.width = "100%";
+    displayPlayList.style.position = "fixed";
+    displayPlayList.style.bottom = "50px";
+    displayPlayList.style.margin = "0";
+    displayPlayList.style.color = "#3a3333";
 
     /*setting source attributs*/
     source.src = playList[0].mp3;
@@ -265,6 +281,7 @@ function myPlayer() {
 
 
     /* pushing all into body */
+    $body.appendChild(displayPlayList);
     $body.appendChild(fullPlayer);
 
 
@@ -437,7 +454,7 @@ function myPlayer() {
             var heightComputed = getComputedStyle(volumeRange).height;*/
             var max = 110;
             var pad = e.clientY - storage.offsetY;
-            var padPercent = (pad * 100) / max;
+            var padPercent = Math.round(((pad * 100) / max)*100)/100;
             if (target && padPercent >= 0 && padPercent <= 100 ) {
 
                 volumePusher.style.height = padPercent + '%';
@@ -463,59 +480,12 @@ function myPlayer() {
 
 
 
-  /*  function dragVolumeControle(e) { // Permet le suivi du drag & drop
-      var target = storage.target;
-      var volBarHeightCalculated = getComputedStyle(volumeRange).height;
-      var volBarHeight = parseInt(volBarHeightCalculated[0] + volBarHeightCalculated[1] + volBarHeightCalculated[2]);
-      var rangePaddingCalculated = getComputedStyle(volumeRange).paddingTop;
-      var rangePadding =  parseInt(rangePaddingCalculated[0] + rangePaddingCalculated[1] + rangePaddingCalculated[2])
-      var rangePaddingPercent = 100 -((rangePadding * 100) / volBarHeight);
-      var targetedPercent =  ((storage.offsetTop * 100)/ volBarHeight);
-      console.log(targetedPercent);
-
-
-      if (target /*&& rangePadding >= 0 && rangePadding <= volBarHeight) {
-
-        volumeRange.style.paddingTop = ( targetedPercent) + "%";
-
-      }
-    }
-
-
-
-    function initiateVolumeDragControle(e){
-
-      var s = storage;
-
-      s.target = e.target;
-      s.offsetX = e.clientX - s.target.offsetLeft;
-      s.offsetY = e.clientY - s.target.offsetTop;
-      s.offsetTop = s.target.offsetTop;
-
-      document.addEventListener("mousemove",dragVolumeControle, false);
-    }
-
-
-    function closeVolumeDragControle(e){
-      var rangePaddingCalculated = getComputedStyle(volumeRange).paddingTop;
-      var rangePadding =  parseInt(rangePaddingCalculated[0] + rangePaddingCalculated[1] + rangePaddingCalculated[2]);
-      var volBarHeightCalculated = getComputedStyle(volumeRange).height;
-      var volBarHeight = parseInt(volBarHeightCalculated[0] + volBarHeightCalculated[1] + volBarHeightCalculated[2]);
-      var rangePaddingPercent = 100 -((rangePadding * 100) / volBarHeight);
-      storage = {};
-      audio.volume = rangePaddingPercent / 100;
-    }
-
-*/
-
 
     function volumeControleShow() {
       var displayComputed = getComputedStyle(volumeCtrl).display;
       if (displayComputed == "none"){
         volumeCtrl.style.display = "block";
-        /*volumeCtrl.addEventListener('mousedown', volumeClickControle, false);
-        volumeCtrl.addEventListener('mousedown', initiateVolumeDragControle, false);
-        volumeCtrl.addEventListener('mouseup',closeVolumeDragControle , false);*/
+
 
       }
     }
@@ -525,10 +495,7 @@ function myPlayer() {
 
       if (displayComputed == "block"){
         volumeCtrl.style.display = "none";
-        /*
-        volumeCtrl.removeEventListener('mousedown', initiateVolumeDragControle, false);
-        volumeCtrl.removeEventListener('mouseup',closeVolumeDragControle , false);
-        document.removeEventListener("mousemove",dragVolumeControle, false);*/
+
       }
 
       storage = {};
@@ -580,6 +547,14 @@ function myPlayer() {
 
   /* function to fill the audio with a song */
   function fillAudio(i, direction) {
+    var wasPlaying = false;
+
+    if (!audio.paused){
+      wasPlaying = true;
+    }else {
+      wasPlaying = false;
+    }
+
     var max = playList.length - 1;
     console.log(max);
     var next = i + 1;
@@ -606,7 +581,10 @@ function myPlayer() {
       playList[max].selected = true;
     }
     audio.load();
-    audio.play();
+
+    if (wasPlaying){
+      audio.play();
+    }
 
   }
 
@@ -617,12 +595,23 @@ function myPlayer() {
     fillAudio(now, "forward");
   }
 
+  /* function to navigate backward in playList */
+
   function previousSong() {
     var now = actualySelected();
     fillAudio(now , "backward");
   }
 
-  /* function to navigate backward in playList */
+  /* function to load playlist */
 
+  function loadPlayList() {
+    for (i = 0; i < playList.length; i++){
+      console.log(playList[i].element.nodeName)
+      displayPlayList.appendChild(playList[i].element);
+    }
+
+  }
+
+  loadPlayList();
   addAllEvents();
 }

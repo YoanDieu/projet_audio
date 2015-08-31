@@ -182,9 +182,16 @@ function myPlayer() {
     volumeRange.style.width = "2px";
     volumeRange.style.height = "110px";
     volumeRange.style.backgroundColor = "white";
-    volumeRange.style.display = "relative";
     volumeRange.style.marginRight = "auto";
     volumeRange.style.marginLeft = "auto";
+
+    var volumePusher = document.createElement("DIV");
+    volumePusher.style.position = "relative";
+    volumePusher.style.display = "block";
+    volumePusher.style.boxSizing = "border-box";
+    volumePusher.style.width = "100%";
+    volumePusher.style.height = "0";
+    volumePusher.style.backgroundColor = "grey";
 
     var volumeCursor = document.createElement("DIV");
     volumeCursor.style.display = "relative";
@@ -194,6 +201,7 @@ function myPlayer() {
     volumeCursor.style.borderRadius = "50%";
     volumeCursor.style.marginLeft = "-7px";
 
+    volumeRange.appendChild(volumePusher);
     volumeRange.appendChild(volumeCursor);
 
     volumeCtrl.appendChild(volumeRange);
@@ -376,11 +384,12 @@ function myPlayer() {
         volumeChoice = clickedAt(e).y;
         barPosition = elementPositionAt(volumeRange).y;
         y = volumeChoice - barPosition ;
-        choicePercentage = (y / barFullHeight )* 100;
+        choicePercentage = Math.round(((y / barFullHeight )* 100) * 100) /100;
         /*songTitle.textContent = clickedAt(e).y;*/
-        volumeRange.style.paddingTop = (fullVolume * choicePercentage) / 100 + "px";
+        volumePusher.style.height = choicePercentage  + "%";
+        console.log(choicePercentage);
         audio.volume = 1 -(choicePercentage / 100);
-      }while (volumeChoice > barPosition.y && volumeChoice < (barPosition.y + barFullHeight));
+      }while (volumeChoice > barPosition.y && choicePercentage <= 100);
     }
 
 
@@ -402,20 +411,20 @@ function myPlayer() {
 
         function mouseMove(e) { // Permet le suivi du drag & drop
             var target = storage.target;
-            var rangeComputed = getComputedStyle(volumeRange).paddingTop;
+            /*var rangeComputed = getComputedStyle(volumeRange).paddingTop;
             var range = parseInt(rangeComputed[0] + rangeComputed[1] + rangeComputed[2]);
-            var heightComputed = getComputedStyle(volumeRange).height;
+            var heightComputed = getComputedStyle(volumeRange).height;*/
             var max = 110;
+            var pad = e.clientY - storage.offsetY;
+            var padPercent = (pad * 100) / max;
+            if (target && padPercent >= 0 && padPercent <= 100 ) {
 
-            if (target && range >= 0 && range < max ) {
-                var pad = e.clientY - storage.offsetY;
-
-                volumeRange.style.paddingTop = pad + 'px';
-                console.log(pad);
+                volumePusher.style.height = padPercent + '%';
+                console.log(padPercent);
             }
         }
 
-        volumeCursor.addEventListener('mouseup', function() { // Termine le drag & drop
+        volumeCtrl.addEventListener('mouseup', function() { // Termine le drag & drop
             storage = {};
         }, false);
 
@@ -423,7 +432,7 @@ function myPlayer() {
 
 
 
-        document.addEventListener('mousemove', mouseMove, false);
+        volumeCtrl.addEventListener('mousemove', mouseMove, false);
     }
 
     init(); // On initialise le code avec notre fonction toute prête.

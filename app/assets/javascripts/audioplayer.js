@@ -87,10 +87,10 @@ function myPlayer() {
   var song2 = new Song(2, "Bens Theme", "LOST", "Michael Giacchino", "LOST - Bens Theme.mp3", "None", "3:51");
   var song3 = new Song(3, "Charlies Theme", "LOST", "Michael Giacchino", "LOST - Charlies Theme.mp3", "None", "3:32");
   var song4 = new Song(4, "Desmond & Pennys Theme", "LOST", "Michael Giacchino", "LOST - Desmond & Pennys Theme.mp3", "None", "4:19");
+  var song5 = new Song(5, "Richards Theme", "LOST", "Michael Giacchino", "LOST - Richards Theme.mp3", "None", "3:42");
 
 
-
-    var playList = [song1, song2, song3, song4];
+    var playList = [song1, song2, song3, song4, song5];
 
     var storage = {};
     var $body = document.getElementById("body");

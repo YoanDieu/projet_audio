@@ -172,7 +172,7 @@ function myPlayer() {
     timeline.style.display = "inline-block";
     timeline.style.height = "50px";
     timeline.style.backgroundColor = "none";
-    timeline.style.width = "85.2%";
+    timeline.style.width = "79%";
     timeline.style.verticalAlign = "middle";
 
     /* setting progressBar */
@@ -305,7 +305,7 @@ function myPlayer() {
     burgerBtn.style.width = "32px";
     burgerBtn.style.height = "100%";
     burgerBtn.style.marginLeft = "0px";
-    burgerBtn.style.marginRight = "10px";
+    burgerBtn.style.marginRight = "0px";
     burgerBtn.style.display = "inline-block";
     burgerBtn.style.verticalAlign = "middle";
     var iconBurger = document.createElement("I");
@@ -335,6 +335,31 @@ function myPlayer() {
     displayPlayList.style.overflow = "hidden";
     displayPlayList.style.transition = "height 1sec";
 
+    var togglePlayListBtn = document.createElement("DIV");
+    togglePlayListBtn.style.position = "relative";
+    togglePlayListBtn.style.display = "inline-block";
+    togglePlayListBtn.style.right = "0px";
+    togglePlayListBtn.style.width = "20px";
+    togglePlayListBtn.style.height = "100%";
+    togglePlayListBtn.style.backgroundColor = "grey";
+    togglePlayListBtn.style.paddingLeft = "10px";
+    /*togglePlayListBtn.style.paddingTop = "10px";*/
+    togglePlayListBtn.style.verticalAlign = "middle";
+    togglePlayListBtn.style.boxSizing = "border-box";
+    togglePlayListBtn.style.margin = "0";
+    togglePlayListBtn.style.marginLeft = "16.5px";
+    var iconClose = document.createElement("I");
+    iconClose.className = "fa fa-caret-left";
+    iconClose.style.color = "white";
+    iconClose.style.marginTop = "17px";
+    var iconOpen = document.createElement("I");
+    iconOpen.className = "fa fa-caret-right";
+    iconOpen.color = "white";
+    iconOpen.style.marginTop = "17px";
+    iconOpen.style.display = "none";
+    togglePlayListBtn.appendChild(iconClose);
+    togglePlayListBtn.appendChild(iconOpen);
+
     /*setting source attributs*/
     source.src = playList[0].mp3;
     song1.selected = true;
@@ -351,6 +376,7 @@ function myPlayer() {
     fullPlayer.appendChild(timeline);
     fullPlayer.appendChild(volumeBtn);
     fullPlayer.appendChild(burgerBtn);
+    fullPlayer.appendChild(togglePlayListBtn);
 
     fullPlayer.appendChild(audio);
 

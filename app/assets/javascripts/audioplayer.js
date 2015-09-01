@@ -335,19 +335,18 @@ function myPlayer() {
     displayPlayList.style.overflow = "hidden";
     displayPlayList.style.transition = "height 1sec";
 
-    var togglePlayListBtn = document.createElement("DIV");
-    togglePlayListBtn.style.position = "relative";
-    togglePlayListBtn.style.display = "inline-block";
-    togglePlayListBtn.style.right = "0px";
-    togglePlayListBtn.style.width = "20px";
-    togglePlayListBtn.style.height = "100%";
-    togglePlayListBtn.style.backgroundColor = "grey";
-    togglePlayListBtn.style.paddingLeft = "10px";
-    /*togglePlayListBtn.style.paddingTop = "10px";*/
-    togglePlayListBtn.style.verticalAlign = "middle";
-    togglePlayListBtn.style.boxSizing = "border-box";
-    togglePlayListBtn.style.margin = "0";
-    togglePlayListBtn.style.marginLeft = "16.5px";
+    var togglePlayerBtn = document.createElement("DIV");
+    togglePlayerBtn.style.position = "relative";
+    togglePlayerBtn.style.display = "inline-block";
+    togglePlayerBtn.style.right = "0px";
+    togglePlayerBtn.style.width = "20px";
+    togglePlayerBtn.style.height = "100%";
+    togglePlayerBtn.style.backgroundColor = "grey";
+    togglePlayerBtn.style.paddingLeft = "10px";
+    togglePlayerBtn.style.verticalAlign = "middle";
+    togglePlayerBtn.style.boxSizing = "border-box";
+    togglePlayerBtn.style.margin = "0";
+    togglePlayerBtn.style.marginLeft = "16.5px";
     var iconClose = document.createElement("I");
     iconClose.className = "fa fa-caret-left";
     iconClose.style.color = "white";
@@ -357,8 +356,8 @@ function myPlayer() {
     iconOpen.color = "white";
     iconOpen.style.marginTop = "17px";
     iconOpen.style.display = "none";
-    togglePlayListBtn.appendChild(iconClose);
-    togglePlayListBtn.appendChild(iconOpen);
+    togglePlayerBtn.appendChild(iconClose);
+    togglePlayerBtn.appendChild(iconOpen);
 
     /*setting source attributs*/
     source.src = playList[0].mp3;
@@ -376,7 +375,7 @@ function myPlayer() {
     fullPlayer.appendChild(timeline);
     fullPlayer.appendChild(volumeBtn);
     fullPlayer.appendChild(burgerBtn);
-    fullPlayer.appendChild(togglePlayListBtn);
+    fullPlayer.appendChild(togglePlayerBtn);
 
     fullPlayer.appendChild(audio);
 
@@ -411,6 +410,17 @@ function myPlayer() {
 
 
     /* play and pause toggle function */
+
+    function togglePlayer() {
+      var actualDisplay = getComputedStyle(iconOpen).display;
+      if (actualDisplay == "block") {
+        iconOpen.style.display = "none";
+        iconClose.style.display = "block";
+      } else {
+        iconOpen.style.display = "block";
+        iconClose.style.display = "none";
+      }
+    }
 
     function playPause(){
 
@@ -633,6 +643,7 @@ function myPlayer() {
     forwardBtn.addEventListener('click', nextSong, false);
     backwardBtn.addEventListener('click', previousSong, false);
     burgerBtn.addEventListener('click', togglePlayList, false);
+    togglePlayerBtn.addEventListener('click', togglePlayer, false);
   }
 
   function removeAllEvents() {

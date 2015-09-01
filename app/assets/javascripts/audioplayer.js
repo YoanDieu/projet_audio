@@ -313,6 +313,7 @@ function myPlayer() {
     iconBurger.style.color = "white";
     iconBurger.style.fontSize = "20px";
     iconBurger.style.marginTop = "15px";
+    iconBurger.style.display = "block";
     var iconCross = document.createElement("I");
     iconCross.className = "fa fa-chevron-down";
     iconCross.style.color = "white";
@@ -322,7 +323,7 @@ function myPlayer() {
     burgerBtn.appendChild(iconCross);
     burgerBtn.appendChild(iconBurger);
     var displayPlayList = document.createElement("UL");
-    displayPlayList.style.display = "block";
+    displayPlayList.style.display = "none";
     displayPlayList.style.backgroundColor = "rgba(255,255,255,0.97)";
     displayPlayList.style.height = "auto";
     displayPlayList.style.width = "100%";

@@ -24,7 +24,7 @@ function myPlayer() {
     this.element.style.display = "block";
     this.element.style.paddingLeft = "20px";
     this.element.style.borderTop = "1px solid #d0d0d0";
-    this.element.style.transition = "background-color 0.6sec"
+    this.element.style.transition = "all 0.5s"
 
     this.col1 = document.createElement("DIV");
     this.col1.style.position = "relative";
@@ -422,6 +422,27 @@ function myPlayer() {
       }
     }
 
+    function updateListPlay() {
+
+
+        var actualSrc = source.getAttribute("src");
+
+
+        for (s = 0; s < playList.length; s++){
+          console.log(actualSrc + " : " + playList[s].mp3);
+          if (actualSrc == playList[s].mp3){
+            console.log(actualSrc);
+            playList[s].selected = true;
+            playList[s].element.style.backgroundColor = "#e8e8e8";
+          }else {
+            playList[s].selected = false;
+            playList[s].element.style.backgroundColor = "white";
+          }
+        }
+
+
+    }
+
     function playPause(){
 
       if (!audio.paused){
@@ -432,10 +453,13 @@ function myPlayer() {
         if (audio.buffered.end) {
           progressBar.style.backgroundColor = "#0c0c0c";
         }
+        var now = actualySelected();
+        updateListPlay();
         audio.play();
         iconPlay.style.display = "none";
         iconPause.style.display = "inline-block";
       }
+
 
     }
 
@@ -463,6 +487,9 @@ function myPlayer() {
           nextSong();
           audio.play();
         }
+
+
+
     }
 
     /* function to get position of the mouse */
@@ -662,6 +689,7 @@ function myPlayer() {
   function playListResetSelect() {
     for (i = 0; i < playList.length; i++){
         playList[i].selected = false;
+        playList[i].element.style.backgroundColor = "none";
     }
   }
 
@@ -723,7 +751,7 @@ function myPlayer() {
       playList[i].element.style.backgroundColor = "#e8e8e8";
     }
     audio.load();
-
+    updateListPlay();
     if (wasPlaying){
       audio.play();
     }
@@ -735,6 +763,7 @@ function myPlayer() {
   function nextSong() {
     var now = actualySelected();
     fillAudio(now, "forward");
+
   }
 
   /* function to navigate backward in playList */
@@ -742,6 +771,7 @@ function myPlayer() {
   function previousSong() {
     var now = actualySelected();
     fillAudio(now , "backward");
+
   }
 
   function navigateByClick(e) {

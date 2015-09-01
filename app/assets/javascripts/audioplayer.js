@@ -313,6 +313,13 @@ function myPlayer() {
     iconBurger.style.color = "white";
     iconBurger.style.fontSize = "20px";
     iconBurger.style.marginTop = "15px";
+    var iconCross = document.createElement("I");
+    iconCross.className = "fa fa-chevron-down";
+    iconCross.style.color = "white";
+    iconCross.style.fontSize = "20px";
+    iconCross.style.marginTop = "15px";
+    iconCross.style.display = "none";
+    burgerBtn.appendChild(iconCross);
     burgerBtn.appendChild(iconBurger);
     var displayPlayList = document.createElement("UL");
     displayPlayList.style.display = "block";
@@ -324,6 +331,8 @@ function myPlayer() {
     displayPlayList.style.margin = "0";
     displayPlayList.style.color = "#3a3333";
     displayPlayList.style.padding = "0";
+    displayPlayList.style.overflow = "hidden";
+    displayPlayList.style.transition = "height 1sec";
 
     /*setting source attributs*/
     source.src = playList[0].mp3;
@@ -570,6 +579,21 @@ function myPlayer() {
       storage = {};
     }
 
+
+    function togglePlayList() {
+      var displayCalculated = getComputedStyle(displayPlayList).display;
+
+      if(displayCalculated == "block"){
+      displayPlayList.style.display = "none";
+      iconCross.style.display = "none";
+      iconBurger.style.display = "block";
+    }else if (displayCalculated == "none"){
+      displayPlayList.style.display = "block";
+      iconCross.style.display = "block";
+      iconBurger.style.display = "none";
+    }
+    }
+
     function addAllEvents(){
 
     playBtn.addEventListener("click", playPause , false);
@@ -581,6 +605,7 @@ function myPlayer() {
     volumeCtrl.addEventListener('click', volumeClickControle, false);
     forwardBtn.addEventListener('click', nextSong, false);
     backwardBtn.addEventListener('click', previousSong, false);
+    burgerBtn.addEventListener('click', togglePlayList, false);
   }
 
   function removeAllEvents() {

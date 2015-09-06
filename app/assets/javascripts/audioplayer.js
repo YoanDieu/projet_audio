@@ -111,6 +111,16 @@ function myPlayer() {
     fullPlayer.style.zIndex = "500";
     fullPlayer.style.bottom = "0px";
     fullPlayer.style.verticalAlign = "middle";
+
+    /* setting leftControlsContainer */
+    var leftControlsContainer = document.createElement("DIV");
+    leftControlsContainer.style.position = "relative";
+    leftControlsContainer.style.display = "inline-block";
+    leftControlsContainer.style.verticalAlign = "middle";
+    leftControlsContainer.style.height = "100%";
+    leftControlsContainer.style.width = "7%";
+    leftControlsContainer.style.right = "0px";
+
     /* setting backward css and attributs */
     var backwardBtn = document.createElement("DIV");
     backwardBtn.style.width = "32px";
@@ -166,7 +176,9 @@ function myPlayer() {
     iconForward.style.marginTop = "20px";
     forwardBtn.appendChild(iconForward);
 
-
+    leftControlsContainer.appendChild(backwardBtn);
+    leftControlsContainer.appendChild(playBtn);
+    leftControlsContainer.appendChild(forwardBtn);
 
     /*setting timline basics */
     var timeline = document.createElement("DIV");
@@ -174,7 +186,7 @@ function myPlayer() {
     timeline.style.display = "inline-block";
     timeline.style.height = "50px";
     timeline.style.backgroundColor = "none";
-    timeline.style.width = "79%";
+    timeline.style.width = "85%";
     timeline.style.verticalAlign = "middle";
 
     /* setting progressBar */
@@ -249,6 +261,17 @@ function myPlayer() {
     timeline.appendChild(progressBar);
     timeline.appendChild(songIntel);
 
+    /* setting rightControlsContainer */
+
+    var rightControlsContainer = document.createElement("DIV");
+    rightControlsContainer.style.position = "relative";
+    rightControlsContainer.style.display = "inline-block";
+    rightControlsContainer.style.verticalAlign = "middle";
+    rightControlsContainer.style.height = "100%";
+    rightControlsContainer.style.width = "8%";
+    rightControlsContainer.style.right = "0px";
+    rightControlsContainer.style.boxSizing = "border-box";
+    rightControlsContainer.style.paddingLeft = "1.7%";
     /* setting volumeBtn */
     var volumeBtn= document.createElement("DIV");
     volumeBtn.style.width = "32px";
@@ -312,7 +335,7 @@ function myPlayer() {
     burgerBtn.style.width = "32px";
     burgerBtn.style.height = "100%";
     burgerBtn.style.marginLeft = "0px";
-    burgerBtn.style.marginRight = "0.5%";
+    burgerBtn.style.marginRight = "5%";
     burgerBtn.style.display = "inline-block";
     burgerBtn.style.verticalAlign = "middle";
     var iconBurger = document.createElement("I");
@@ -366,6 +389,10 @@ function myPlayer() {
     togglePlayerBtn.appendChild(iconClose);
     togglePlayerBtn.appendChild(iconOpen);
 
+    rightControlsContainer.appendChild(volumeBtn);
+    rightControlsContainer.appendChild(burgerBtn);
+    rightControlsContainer.appendChild(togglePlayerBtn);
+
     /*setting source attributs*/
     source.src = playList[0].mp3;
     song1.selected = true;
@@ -376,13 +403,9 @@ function myPlayer() {
 
 
     audio.appendChild(source);
-    fullPlayer.appendChild(backwardBtn);
-    fullPlayer.appendChild(playBtn);
-    fullPlayer.appendChild(forwardBtn);
+    fullPlayer.appendChild(leftControlsContainer);
     fullPlayer.appendChild(timeline);
-    fullPlayer.appendChild(volumeBtn);
-    fullPlayer.appendChild(burgerBtn);
-    fullPlayer.appendChild(togglePlayerBtn);
+    fullPlayer.appendChild(rightControlsContainer);
 
     fullPlayer.appendChild(audio);
 
@@ -425,37 +448,39 @@ function myPlayer() {
       if (actualOpenDisplay == "none" && actualCloseDisplay == "block") {
         iconOpen.style.display = "block";
         iconClose.style.display = "none";
+
         backwardBtn.style.display = "none";
         forwardBtn.style.display = "none";
-        songTitle.style.display = "none";
-        songLength.style.display = "none";
+        leftControlsContainer.style.width = "auto";
         timeline.style.display = "none";
         volumeBtn.style.display = "none";
         burgerBtn.style.display = "none";
+
         fullPlayer.style.width = "auto";
         displayPlayList.style.display = "none";
         cover.style.marginTop = "0";
         songIntel.removeChild(cover);
-        fullPlayer.insertBefore(cover, playBtn);
-        fullPlayer.removeChild(playBtn);
+        leftControlsContainer.insertBefore(cover, playBtn);
+        leftControlsContainer.removeChild(playBtn);
         cover.appendChild(playBtn);
 
       } else {
         iconOpen.style.display = "none";
         iconClose.style.display = "block";
+
         backwardBtn.style.display = "inline-block";
         forwardBtn.style.display = "inline-block";
-        songTitle.style.display = "inline-block";
-        songLength.style.display = "inline-block";
+        leftControlsContainer.style.width = "7%";
         timeline.style.display = "inline-block";
         volumeBtn.style.display = "inline-block";
         burgerBtn.style.display = "inline-block";
         fullPlayer.style.width = "100%";
         displayPlayList.style.display = "block";
-        fullPlayer.removeChild(cover);
+        leftControlsContainer.removeChild(cover);
         songIntel.insertBefore(cover, songTitle);
         cover.removeChild(playBtn);
-        fullPlayer.insertBefore(playBtn, forwardBtn);
+        leftControlsContainer.insertBefore(playBtn, forwardBtn);
+        rightControlsContainer.style.display= "inline-block";
         cover.style.marginTop = "-4px";
       }
     }

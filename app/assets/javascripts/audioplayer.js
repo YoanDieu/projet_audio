@@ -123,16 +123,17 @@ function myPlayer() {
 
     /* setting backward css and attributs */
     var backwardBtn = document.createElement("DIV");
-    backwardBtn.style.width = "32px";
+    backwardBtn.style.width = "30%";
     backwardBtn.style.height = "100%";
-    backwardBtn.style.marginLeft = "10px";
+    backwardBtn.style.marginLeft = "0";
     backwardBtn.style.display = "inline-block";
     backwardBtn.style.verticalAlign = "middle";
+    backwardBtn.style.textAlign = "center";
     var iconBack = document.createElement("I");
     iconBack.className = "fa fa-step-backward";
     iconBack.style.color = "white";
     iconBack.style.marginTop = "20px";
-    iconBack.style.paddingLeft = "12px";
+    iconBack.style.paddingLeft = "0";
     iconBack.style.fontSize = "13px";
     backwardBtn.appendChild(iconBack);
 
@@ -140,11 +141,12 @@ function myPlayer() {
 
     /* setting playBtn css and attributs */
     var playBtn = document.createElement("DIV");
-    playBtn.style.width = "32px";
+    playBtn.style.width = "36%";
     playBtn.style.height = "100%";
     playBtn.style.display = "inline-block"
-    playBtn.style.paddingLeft = "12px";
+    playBtn.style.paddingLeft = "0";
     playBtn.style.verticalAlign = "middle";
+    playBtn.style.textAlign = "center";
     var iconPlay = document.createElement("I");
     iconPlay.className = "fa fa-play";
     iconPlay.style.color = "white";
@@ -163,12 +165,13 @@ function myPlayer() {
 
     /* setting forward css and attributs */
     var forwardBtn = document.createElement("DIV");
-    forwardBtn.style.width = "32px";
+    forwardBtn.style.width = "26%";
     forwardBtn.style.height = "100%";
-    forwardBtn.style.marginLeft = "5px";
-    forwardBtn.style.marginRight = "10px";
+    forwardBtn.style.marginLeft = "-3%";
+    forwardBtn.style.marginRight = "0";
     forwardBtn.style.display = "inline-block";
     forwardBtn.style.verticalAlign = "middle";
+    forwardBtn.style.textAlign = "center";
     var iconForward = document.createElement("I");
     iconForward.className = "fa fa-step-forward";
     iconForward.style.color = "white";
@@ -213,13 +216,11 @@ function myPlayer() {
     cover.style.position = "relative";
     cover.style.display = "inline-block";
     cover.style.verticalAlign = "middle";
+    cover.style.textAlign = "center";
     cover.style.zIndex = "510";
     cover.style.backgroundImage = "url(assets/album-01.jpg)";
     cover.style.backgroundSize = "cover";
-    /*var coverImg = document.createElement("IMG");
-    coverImg.src = "assets/album-01.jpg";
-    coverImg.style.height = "50px";
-    cover.appendChild(coverImg);*/
+
 
     /* settings song and song length */
     var songTitle = document.createElement("P");
@@ -274,12 +275,13 @@ function myPlayer() {
     rightControlsContainer.style.paddingLeft = "1.7%";
     /* setting volumeBtn */
     var volumeBtn= document.createElement("DIV");
-    volumeBtn.style.width = "32px";
+    volumeBtn.style.width = "33%";
     volumeBtn.style.height = "100%";
-    volumeBtn.style.marginLeft = "20px";
+    volumeBtn.style.marginLeft = "0";
     volumeBtn.style.marginRight = "10px";
     volumeBtn.style.display = "inline-block";
     volumeBtn.style.verticalAlign = "middle";
+    volumeBtn.style.textAlign = "center";
     var iconVolume = document.createElement("I");
     iconVolume.className = "fa fa-volume-up";
     iconVolume.style.color = "white";
@@ -289,10 +291,10 @@ function myPlayer() {
     /* setting volumCtrl */
     var volumeCtrl = document.createElement("DIV");
     volumeCtrl.style.height = "130px";
-    volumeCtrl.style.width = "50px";
+    volumeCtrl.style.width = "100%";
     volumeCtrl.style.backgroundColor = "black";
     volumeCtrl.style.marginTop = "-150px";
-    volumeCtrl.style.marginLeft = "-15px";
+    volumeCtrl.style.marginLeft = "0";
     volumeCtrl.style.display = "none";
     volumeCtrl.style.paddingTop = "20px";
 
@@ -332,10 +334,10 @@ function myPlayer() {
 
     /* setting BurgerBtn */
     var burgerBtn= document.createElement("DIV");
-    burgerBtn.style.width = "32px";
+    burgerBtn.style.width = "33%";
     burgerBtn.style.height = "100%";
-    burgerBtn.style.marginLeft = "0px";
-    burgerBtn.style.marginRight = "5%";
+    burgerBtn.style.marginLeft = "0";
+    burgerBtn.style.marginRight = "10.5%";
     burgerBtn.style.display = "inline-block";
     burgerBtn.style.verticalAlign = "middle";
     var iconBurger = document.createElement("I");
@@ -369,11 +371,11 @@ function myPlayer() {
     togglePlayerBtn.style.position = "relative";
     togglePlayerBtn.style.display = "inline-block";
     togglePlayerBtn.style.right = "0px";
-    togglePlayerBtn.style.width = "20px";
+    togglePlayerBtn.style.width = "15%";
     togglePlayerBtn.style.height = "100%";
     togglePlayerBtn.style.backgroundColor = "grey";
-    togglePlayerBtn.style.paddingLeft = "10px";
     togglePlayerBtn.style.verticalAlign = "middle";
+    togglePlayerBtn.style.textAlign = "center";
     togglePlayerBtn.style.boxSizing = "border-box";
     togglePlayerBtn.style.margin = "0";
     var iconClose = document.createElement("I");
@@ -455,14 +457,18 @@ function myPlayer() {
         timeline.style.display = "none";
         volumeBtn.style.display = "none";
         burgerBtn.style.display = "none";
-
+        togglePlayerBtn.style.width = "20px";
+        togglePlayerBtn.style.marginLeft = "-1px";
         fullPlayer.style.width = "auto";
         displayPlayList.style.display = "none";
         cover.style.marginTop = "0";
+        cover.style.opacity = "0.5"
         songIntel.removeChild(cover);
         leftControlsContainer.insertBefore(cover, playBtn);
-        leftControlsContainer.removeChild(playBtn);
-        cover.appendChild(playBtn);
+        playBtn.style.width = "50px";
+        playBtn.style.marginLeft = "-50px";
+
+
 
       } else {
         iconOpen.style.display = "none";
@@ -476,12 +482,14 @@ function myPlayer() {
         burgerBtn.style.display = "inline-block";
         fullPlayer.style.width = "100%";
         displayPlayList.style.display = "block";
+        togglePlayerBtn.style.width = "15%";
+        togglePlayerBtn.style.marginLeft = "0";
         leftControlsContainer.removeChild(cover);
         songIntel.insertBefore(cover, songTitle);
-        cover.removeChild(playBtn);
-        leftControlsContainer.insertBefore(playBtn, forwardBtn);
         rightControlsContainer.style.display= "inline-block";
         cover.style.marginTop = "-4px";
+        playBtn.style.marginLeft = "0";
+        cover.style.opacity = "1"
       }
     }
 
